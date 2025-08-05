@@ -22,11 +22,10 @@ app.use(limiter);
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-   ? true 
-   : ['http://localhost:3000', 'https://hrim.vercel.app/'],
+  origin: 'https://hrim.vercel.app',
   credentials: true
 }));
+
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
