@@ -1,0 +1,30 @@
+# Ignore node_modules from both Frontend and Backend
+/Frontend/node_modules/
+/Backend/node_modules/
+
+# Ignore build or dist folders (optional, for React/Next backend builds)
+/Frontend/build/
+/Frontend/dist/
+/Backend/build/
+/Backend/dist/
+
+# Ignore .env files (secret credentials)
+/Frontend/.env
+/Backend/.env
+.env
+.env.local
+.env.*.local
+
+# Ignore log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore test coverage (if using Jest or any testing)
+/coverage
+
+# Ignore system files
+.DS_Store
+Thumbs.db
