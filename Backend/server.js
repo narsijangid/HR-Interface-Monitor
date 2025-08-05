@@ -24,7 +24,7 @@ app.use(limiter);
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
    ? true 
-   : ['http://localhost:3000', 'http://localhost:5173'],
+   : ['http://localhost:3000', 'https://hrim.vercel.app/'],
   credentials: true
 }));
 
