@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { Search, Filter, Calendar, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import './Logs.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://hr-interface-monitor.onrender.com/api';
 
 const Logs = () => {
   const [logs, setLogs] = useState([]);
