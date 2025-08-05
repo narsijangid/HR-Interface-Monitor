@@ -13,21 +13,17 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 
+// CORS – allow all origins (no restriction)
+app.use(cors());
+
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
-  max: 1000 
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000 // Limit each IP to 1000 requests per windowMs
 });
 app.use(limiter);
 
-// CORS configuration
-app.use(cors({
-  origin: 'https://hrim.vercel.app',
-  credentials: true
-}));
-
-
-// Body parsing middleware
+// Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -38,16 +34,16 @@ app.use(morgan('combined'));
 app.use('/api/logs', require('./routes/logs'));
 app.use('/api/dashboard', require('./routes/dashboard'));
 
-// Health check endpoint
+// Health check
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
   });
 });
 
-// Root endpoint - shows working status
+// Root endpoint
 app.get('/', (req, res) => {
   const healthStatus = {
     status: 'WORKING FINE',
@@ -61,14 +57,14 @@ app.get('/', (req, res) => {
     },
     environment: process.env.NODE_ENV || 'development'
   };
-  
+
   res.json(healthStatus);
 });
 
-// Error handling middleware
+// Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ 
+  res.status(500).json({
     status: 'ERROR',
     message: 'HR Interface Monitoring Backend encountered an error',
     error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error',
@@ -108,7 +104,7 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   await connectDB();
-  
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
